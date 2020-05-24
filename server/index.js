@@ -23,7 +23,7 @@ db.on('error', (error) => {
     console.log(error)
 });
 
-
+var t = "hej";
 
 // Middleware 
 app.use(bodyParser.urlencoded({ extended: false }));
