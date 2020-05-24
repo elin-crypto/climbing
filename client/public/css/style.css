@@ -1,0 +1,127 @@
+
+p.error {
+    border: 1px solid #ff5b5f;
+    background-color: #ffc5c1;
+  }
+  div.post {
+    position: relative;
+  
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  h1,
+  h2, 
+  h3, 
+  h4,
+  p {
+      margin: 0;
+      padding: 0;
+      text-align: left;
+  }
+  
+  body {
+      font-family: Helvetica, Arial, sans-serif;
+      line-height: 1.6em;
+    }
+  .container {
+      width: 80%;
+      max-width: 1140px;
+      margin: 0 auto;
+  }
+  header {
+      position: relative;
+      background-color: #000;
+      color: gold;
+      height: 4em;
+  }
+  .mainNav ul {
+      list-style-type: none;
+      position: absolute;
+      top: 0.5em;
+      right: 1em;
+  }
+  .mainNav li {
+      display: inline;
+      padding-left: 1em;
+  }
+  .mainNav li a {
+      color: gold;
+      text-decoration: none;
+      text-transform: uppercase;
+  }
+   
+  #heading h1 {
+  text-align: left;
+  padding: 0.6em 0 1em 0.5em;
+  margin-bottom: 2em;
+  font-family: 'Chelsea Market', cursive;
+  
+  }
+  h2 {
+      margin: 2em 0 1em 0;
+  }
+  .btn {
+  padding: 0.1em 0.5em 0.1em 0.5em;
+  background-color: #111;
+  color: aliceblue;
+  font-size: 1em;
+  margin-right: 0.5em;
+  }
+  .red {
+      background-color: darkorange;
+  }
+  button {
+  border: none;
+  line-height: 1.6em;
+  margin-top: 1em;
+  }
+  .btn:hover {
+  background-color: crimson;
+  cursor: pointer;
+  }
+  li {
+  font-size: 1.2em;
+  }
+  .create-post {
+      text-align: left;
+  }
+  .create-post p {
+      margin: 0;
+  }
+  input {
+  border: 1px solid black;
+  height: 2em;
+  margin: 0.5em 0;
+  width: 30em;
+  }
+  .update {
+  margin-left: 1em;
+  }
+  
+  
+  #updatecourse h3 {
+  color: crimson;
+  }
+  #main {
+      display: grid;
+      grid-template-columns: 50% 45%;
+      gap: 5%;
+  }
+  #left {
+      grid-column: 1 / 2;
+  }
+  #right {
+      width: 2 / 3; 
+  }
+  
+  .color {
+      color: #fff;
+      background-color: darkorange;
+      padding: 0.2em;
+      text-align: center;
+  }
+  
+  
+  footer {
+      height: 10em;
+  }
