@@ -23,7 +23,7 @@ db.on('error', (error) => {
     console.log(error)
 });
 
-var t = "hej";
+
 
 // Middleware 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,7 +40,7 @@ app.get("/api/posts", function(req, res) {
             res.send(err);
         }
         res.json(Posts);
-    });
+    }).sort({createdAt: -1});
 });
   
 
@@ -67,14 +67,27 @@ app.post('/api/posts/add', (req, res) => {
   });
 });
 
+
+
 // UPDATE POST
-app.patch('/api/posts/update/:id',(req, res) => {
-    climbingModel.findByIdAndUpdate(req.params.id, (err, todo) => {
-      if(!err){
-        res.send("Good Work");
-      }
-    });
+
+app.put('/api/posts/update/:id',(req, res) => {
+    var query = { _id: req.params.id };
+    var update = {
+      $set: {
+        name: req.body.newPost.name,
+        grade: req.body.newPost.grade,
+        area: req.body.newPost.area,
+        description: req.body.newPost.description,
+        type: req.body.newPost.type
+    }};
+    
+    climbingModel.updateOne(query, update)
+    .catch(err => console.error(`Failed to add review: ${err}`));
+    res.send("Post updated")
+      
 });
+
 
 // DELETE POST 
 app.delete('/api/posts/delete/:id', (req, res) => {
@@ -88,6 +101,13 @@ app.delete('/api/posts/delete/:id', (req, res) => {
     });
   });
 
+
+
+
+
+
+
+  
 
 const port = process.env.PORT || 5000;
 

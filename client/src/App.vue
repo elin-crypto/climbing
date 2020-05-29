@@ -1,16 +1,10 @@
 <template>
  <div class="container">
     <header>
-      <div id="heading">
-        <h1> En klättrares guide till klippan</h1>
-      </div>
-      <nav class="mainNav">
-        <ul>
-            <li><a href="index.html">Hem</a></li>
-            <li><a href="">Kontakt</a></li>
-            <li><a href="">Logga in</a></li>
-        </ul>
-      </nav>
+        <div id="heading">
+            <h1> En klättrares guide till klippan</h1>
+        </div>
+
     </header>
 
 
@@ -19,73 +13,74 @@
       
       <!----------------
         LEFT SIDE COLUMN
-        ---------------->
-      
+      ------------------>
       <div id="left">
              
         <p class="error" v-if="error">{{ error }}</p>
 
-        <div id="route-list"></div>
-
+        
         <div class="post-container">
-          <div class="post"
-          v-for="(post, index) in posts"
-          v-bind:item="post"
-          v-bind:index="index"
-          v-bind:key="post._id"
-          >
-          <div v-if="!editPost">
+            <div class="post"
+            v-for="(post, index) in posts"
+            v-bind:item="post"
+            v-bind:index="index"
+            v-bind:key="post._id"
+            >
+                <!-- write all posts to screen -->
+                <div v-if="!editPost">
+                    <h2 class="name">{{ post.name }}</h2>
+                    <p class="grade">{{ post.grade }}</p>
+                    <p class="area"><strong>Område: </strong>{{ post.area }}</p>
+                    <p class="description"><strong>Beskrivning: </strong>{{ post.description }}</p>
+                    <p class="type"><strong>Typ: </strong>{{ post.type }}</p>
+                    <button class="btn" @click="deletePost(post._id)">Radera</button>
+                    <button class="btn" @click="editPost=post">Uppdatera</button>
+                </div>
 
-            <h2 class="name">{{ post.name }}</h2>
-            <p class="grade">{{ post.grade }}</p>
-            <p class="area"><strong>Område: </strong>{{ post.area }}</p>
-            <p class="description"><strong>Beskrivning: </strong>{{ post.description }}</p>
-            <p class="type"><strong>Typ: </strong>{{ post.type }}</p>
-            <button class="btn" @click="deletePost(post._id)">Radera</button>
-            <button class="btn" @click="editPost=post">Uppdatera</button>
-          </div>
-          <div v-else>
-
-            <div class="create-post">
-          <h2>Uppdatera problem</h2>
-          <label for="create-post">Namn:</label><br>
-          <input type="text" id="create-name" v-model="editPost.name"><br>
-          <p>Grad: </p> 
-          <input type="text" id="create-grade" v-model="editPost.grade"><br>
-          <p>Område:</p>
-          <input type="text" id="create-area" v-model="editPost.area"><br>
-          <p>Beskrivning:</p>
-          <input type="text" id="create-description" v-model="editPost.description"><br>
-          <p>Typ:</p>
-          <input type="text" id="create-type" v-model="editPost.type"><br>
-          <button class="btn" @click="addPost()">Lägg till nytt problem!</button>
-          <button class="btn" @click="editPost=null;">Avbryt</button>
-
-        </div>
-
-          </div>
+                <div v-else>
+                    <!-- UPDATE POST FORM-->
+                    <div class="create-post" v-if="editPost._id === post._id">
+                        <h2 class="update">Uppdatera problem</h2>
+                        <p class="updatelabel">Namn:</p> 
+                        <input type="text" id="create-name" v-model="editPost.name"><br>
+                        <p class="updatelabel"> Grad:</p>
+                        <input type="text" id="create-grade" v-model="editPost.grade"><br>
+                        <p class="updatelabel">Område:</p>
+                        <input type="text" id="create-area" v-model="editPost.area"><br>
+                        <p class="updatelabel">Beskrivning:</p>
+                        <input type="text" id="create-description" v-model="editPost.description"><br>
+                        <p class="updatelabel">Typ:</p>
+                        <input type="text" id="create-type" v-model="editPost.type"><br>
+                        <button class="btn" @click="updatePost(editPost._id), editPost=null;">Uppdatera problemet!</button>
+                        <button class="btn" @click="editPost=null;">Avbryt</button>
+                    </div>
+                </div>
           </div><!-- end post -->
         </div><!-- end post-container -->
       </div><!-- end LEFT COLUMN -->
-          <!----------------
+      
+
+      <!----------------
         RIGHT SIDE COLUMN
-        ---------------->
+      ------------------->
+      <!-- CREATE PROBLEM -->
       <div id="right" v-if="!editPost">
-        <div class="create-post">
-          <h2>Nästa problem</h2>
-          <label for="create-post">Namn:</label><br>
-          <input type="text" id="create-name" v-model="rutt.name"><br>
-          <p>Grad: </p> 
-          <input type="text" id="create-grade" v-model="rutt.grade"><br>
-          <p>Område:</p>
-          <input type="text" id="create-area" v-model="rutt.area"><br>
-          <p>Beskrivning:</p>
-          <input type="text" id="create-description" v-model="rutt.description"><br>
-          <p>Typ:</p>
-          <input type="text" id="create-type" v-model="rutt.type"><br>
-          <button class="btn" @click="addPost()">Lägg till nytt problem!</button>
-        </div>
-      </div>
+          <div class="create-post">
+              <h2>Nästa problem</h2>
+              <label for="create-post">Namn:</label><br>
+              <input type="text" id="create-name" v-model="rutt.name"><br>
+              <p>Grad: </p> 
+              <input type="text" id="create-grade" v-model="rutt.grade"><br>
+              <p>Område:</p>
+              <input type="text" id="create-area" v-model="rutt.area"><br>
+              <p>Beskrivning:</p>
+              <input type="text" id="create-description" v-model="rutt.description"><br>
+              <p>Typ:</p>
+              <input type="text" id="create-type" v-model="rutt.type"><br>
+              <button class="btn" @click="addPost()">Lägg till nytt problem!</button>
+          </div>
+      </div><!-- end create-post div -->
+
     </div><!--end main-->
   </div><!-- end container -->
 </template>
@@ -124,15 +119,24 @@ export default {
        this.message = response.data;
        this.getPosts();
      });
-  },
-  deletePost(id) {
-    axios
-    .delete("http://localhost:5000/api/posts/delete/" + id).then(response => {
-      this.getPosts();
-    console.log(response.data);
-    });
-}
-}
+    },
+    deletePost(id) {
+      axios
+      .delete("http://localhost:5000/api/posts/delete/" + id).then(response => {
+        this.getPosts();
+      console.log(response.data);
+      });
+    },
+    updatePost(id) {
+      axios.put("http://localhost:5000/api/posts/update/" + id, {
+        newPost: this.editPost
+      }).then(response => {
+        this.message = response.data;
+        this.getPosts();
+        
+      });
+    }
+  }
 }
 
 </script>
