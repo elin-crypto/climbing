@@ -113,7 +113,6 @@ export default {
 },
   methods: {
     getPosts() {
-      console.log("hallå, testar!");
       axios.get(url)
         .then(response => (this.posts = response.data))
         .catch(error => console.log(error));
@@ -134,7 +133,7 @@ export default {
       });
     },
     updatePost(id) {
-      axios.put(url + "/update/" + id, {
+      axios.put(url + "update/" + id, {
         newPost: this.editPost
       }).then(response => {
         this.message = response.data;
