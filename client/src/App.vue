@@ -113,6 +113,7 @@ export default {
 },
   methods: {
     getPosts() {
+      console.log("hallå, testar!");
       axios.get(url)
         .then(response => (this.posts = response.data))
         .catch(error => console.log(error));
