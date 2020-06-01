@@ -23,13 +23,10 @@ db.on('error', (error) => {
     console.log(error)
 });
 
-
-
 // Middleware 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-
 
 
 // GET POSTS
@@ -41,8 +38,7 @@ app.get("/api/posts", function(req, res) {
         }
         res.json(Posts);
     }).sort({createdAt: -1});
-});
-  
+});  
 
 // CREATE POST 
 app.post('/api/posts/add', (req, res) => {
@@ -67,10 +63,7 @@ app.post('/api/posts/add', (req, res) => {
   });
 });
 
-
-
 // UPDATE POST
-
 app.put('/api/posts/update/:id',(req, res) => {
     var query = { _id: req.params.id };
     var update = {
@@ -101,12 +94,15 @@ app.delete('/api/posts/delete/:id', (req, res) => {
     });
   });
 
+// Handle production
 
+if(process.env.NODE_ENV === 'production') {
+  // Static folder
+  app.use(express.static(__dirname + '/public/'));
 
-
-
-
-
+  // Handle SPA single page application
+  app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+}
   
 
 const port = process.env.PORT || 5000;

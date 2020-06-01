@@ -2,15 +2,19 @@
  <div class="container">
     <header>
         <div id="heading">
-            <h1> En klättrares guide till klippan</h1>
+          <!--  <h1 id="header-heading"> En klättrares guide till klippan</h1>-->
         </div>
 
     </header>
 
-
+      <div id="startpage">
+        <h1 class="presentation">En klättrares guide till klippan <i class="fas fa-mountain"></i> </h1>
+        <p class="intro">Registrera dina klättringsproblem </p>
+        <i class="fas fa-arrow-circle-down"></i>
+      </div>
 
     <div id="main">
-      
+
       <!----------------
         LEFT SIDE COLUMN
       ------------------>
@@ -29,7 +33,7 @@
                 <!-- write all posts to screen -->
                 <div v-if="!editPost">
                     <h2 class="name">{{ post.name }}</h2>
-                    <p class="grade">{{ post.grade }}</p>
+                    <p class="grade"><strong>Grad: </strong>{{ post.grade }}</p>
                     <p class="area"><strong>Område: </strong>{{ post.area }}</p>
                     <p class="description"><strong>Beskrivning: </strong>{{ post.description }}</p>
                     <p class="type"><strong>Typ: </strong>{{ post.type }}</p>
@@ -65,7 +69,7 @@
       ------------------->
       <!-- CREATE PROBLEM -->
       <div id="right" v-if="!editPost">
-          <div class="create-post">
+          <form class="create-post">
               <h2>Nästa problem</h2>
               <label for="create-post">Namn:</label><br>
               <input type="text" id="create-name" v-model="rutt.name"><br>
@@ -78,7 +82,7 @@
               <p>Typ:</p>
               <input type="text" id="create-type" v-model="rutt.type"><br>
               <button class="btn" @click="addPost()">Lägg till nytt problem!</button>
-          </div>
+          </form>
       </div><!-- end create-post div -->
 
     </div><!--end main-->
@@ -87,6 +91,7 @@
 
 <script>
 import axios from "axios";
+const url = 'api/posts/';
 
 export default {
   data: () => ({
@@ -108,12 +113,12 @@ export default {
 },
   methods: {
     getPosts() {
-      axios.get("http://localhost:5000/api/posts")
+      axios.get(url)
         .then(response => (this.posts = response.data))
         .catch(error => console.log(error));
     },
     addPost() {
-      axios.post("http://localhost:5000/api/posts/add", {
+      axios.post(url + "add", {
         newPost: this.rutt
      }).then(response => {
        this.message = response.data;
@@ -122,22 +127,22 @@ export default {
     },
     deletePost(id) {
       axios
-      .delete("http://localhost:5000/api/posts/delete/" + id).then(response => {
+      .delete(url + "delete/" + id).then(response => {
         this.getPosts();
       console.log(response.data);
       });
     },
     updatePost(id) {
-      axios.put("http://localhost:5000/api/posts/update/" + id, {
+      axios.put(url + "/update/" + id, {
         newPost: this.editPost
       }).then(response => {
         this.message = response.data;
         this.getPosts();
-        
       });
     }
   }
 }
+
 
 </script>
 
