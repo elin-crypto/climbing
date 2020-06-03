@@ -11,4 +11,4 @@ const climbingSchema = Schema({
   createdAt: Date
 });
 
-const climbing = (module.exports = mongoose.model("climbing", climbingSchema));
+module.exports = mongoose.model("climbing", climbingSchema);

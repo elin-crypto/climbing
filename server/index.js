@@ -24,8 +24,8 @@ db.on('error', (error) => {
 });
 
 // Middleware 
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 
@@ -95,7 +95,6 @@ app.delete('/api/posts/delete/:id', (req, res) => {
   });
 
 // Handle production
-
 if(process.env.NODE_ENV === 'production') {
   // Static folder
   app.use(express.static(__dirname + '/public/'));
