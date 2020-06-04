@@ -44,7 +44,7 @@ app.get("/api/posts", function(req, res) {
 app.post('/api/posts/add', (req, res) => {
     var newPost = new climbingModel;
 
-    console.log(req.body)
+    //console.log(req.body)
 
     newPost.name = req.body.newPost.name;
     newPost.grade = req.body.newPost.grade;
@@ -77,7 +77,7 @@ app.put('/api/posts/update/:id',(req, res) => {
     
     climbingModel.updateOne(query, update)
     .catch(err => console.error(`Failed to add review: ${err}`));
-    res.send("Post updated")
+    res.send("Post updated");
       
 });
 
@@ -87,14 +87,15 @@ app.delete('/api/posts/delete/:id', (req, res) => {
     var query = { _id: req.params.id }
     climbingModel.deleteOne(query, (err) => {
       if(err){
-        res.send("Error while deleting Post")
+        res.send("Error while deleting Post");
       }else{
-        res.send("Post deleted")
+        res.send("Post deleted");
       }
     });
   });
 
 // Handle production
+
 if(process.env.NODE_ENV === 'production') {
   // Static folder
   app.use(express.static(__dirname + '/public/'));
@@ -103,6 +104,7 @@ if(process.env.NODE_ENV === 'production') {
   app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
 }
   
+
 const port = process.env.PORT || 5000;
 
 // Start server

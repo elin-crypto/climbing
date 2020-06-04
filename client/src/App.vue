@@ -118,18 +118,23 @@ export default {
         .catch(error => console.log(error));
     },
     addPost() {
-      axios.post(url + "add", {
-        newPost: this.rutt
-     }).then(response => {
-       this.message = response.data;
-       this.getPosts();
-     });
+      // check if input name is empty
+      if(this.rutt.name != "") {
+        axios.post(url + "add", {
+            newPost: this.rutt
+        }).then(response => {
+          this.message = response.data;
+          this.getPosts();
+        });
+      } else {
+        this.error = "Du måste fylla i ett namn på ditt problem";
+      }
     },
     deletePost(id) {
       axios
       .delete(url + "delete/" + id).then(response => {
         this.getPosts();
-      console.log(response.data);
+        console.log(response.data);
       });
     },
     updatePost(id) {
